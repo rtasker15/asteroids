@@ -14,10 +14,10 @@ def main():
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    asteroid = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
-    Asteroid.containers = (asteroid, updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
 
     player_1 = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
@@ -31,6 +31,11 @@ def main():
         screen.fill("black")
 
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if CircleShape.collision_check(asteroid, player_1) == True:
+                return
+
         for drawing in drawable:
             drawing.draw(screen)
 
