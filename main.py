@@ -38,6 +38,14 @@ def main():
                 print("Game over!")
                 return
 
+
+    # AttributeError: type object 'Shot' has no attribute 'position'
+    # Unable to get shots to collide with asteroids. For some reason asteroid + shot collision check not working.
+        # for asteroid in asteroids:
+        #     if CircleShape.collision_check(asteroid, Shot) == True:
+        #         asteroid.kill()
+        #         print("pew pew")
+
         for drawing in drawable:
             drawing.draw(screen)
 
