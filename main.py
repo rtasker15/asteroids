@@ -15,11 +15,12 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
-    Shot.containers = (updatable, drawable)
+    Shot.containers = (updatable, drawable, shots)
 
     player_1 = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
     asteroidfield = AsteroidField()
@@ -30,7 +31,6 @@ def main():
                 return
 
         screen.fill("black")
-
         updatable.update(dt)
 
         for asteroid in asteroids:
@@ -38,14 +38,12 @@ def main():
                 print("Game over!")
                 return
 
-
-    # AttributeError: type object 'Shot' has no attribute 'position'
-    # Unable to get shots to collide with asteroids. For some reason asteroid + shot collision check not working.
-        # for asteroid in asteroids:
-        #     if CircleShape.collision_check(asteroid, Shot) == True:
-        #         asteroid.kill()
-        #         print("pew pew")
-
+        for asteroid in asteroids:
+            for shot in shots:
+                if CircleShape.collision_check(asteroid, shot) == True:
+                    pygame.sprite.Sprite.kill(asteroid)
+                    pygame.sprite.Sprite.kill(shot)
+                
         for drawing in drawable:
             drawing.draw(screen)
 
